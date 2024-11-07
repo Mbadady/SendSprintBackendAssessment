@@ -1,6 +1,4 @@
-﻿using BackendAssessment.Models;
-
-namespace BackendAssessment.Interfaces
+﻿namespace BackendAssessment.Interfaces
 {
     public interface IJwtTokenGenerator
     {

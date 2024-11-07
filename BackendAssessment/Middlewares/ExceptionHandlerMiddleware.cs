@@ -1,7 +1,4 @@
-﻿using BackendAssessment.Models.DTOs;
-using System.Text.Json;
-
-namespace BackendAssessment.Middlewares
+﻿namespace BackendAssessment.Middlewares
 {
     public class ExceptionHandlerMiddleware
     {

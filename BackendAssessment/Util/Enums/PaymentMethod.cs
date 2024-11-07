@@ -2,7 +2,7 @@
 {
     public enum PaymentMethod
     {
-        FLUTTERWAVE = 1,
-        PAYSTACK = 2,
+        FlutterWave = 1,
+        Paystack = 2,
     }
 }

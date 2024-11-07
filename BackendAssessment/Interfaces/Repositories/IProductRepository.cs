@@ -1,7 +1,4 @@
-﻿using BackendAssessment.Interfaces.IRepositories;
-using BackendAssessment.Models;
-
-namespace BackendAssessment.Interfaces.Repositories
+﻿namespace BackendAssessment.Interfaces.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {

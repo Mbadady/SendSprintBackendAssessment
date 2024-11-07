@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Serilog;
 
 namespace BackendAssessment.Models.DTOs
 {
@@ -33,7 +32,7 @@ namespace BackendAssessment.Models.DTOs
                 IsSuccess = true,
                 Message = message,
                 Result = entity,
-                
+
             };
         }
         public static ResponseDto Success(string message)

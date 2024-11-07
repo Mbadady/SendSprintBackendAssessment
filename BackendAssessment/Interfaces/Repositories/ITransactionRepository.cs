@@ -1,6 +1,4 @@
-﻿using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs.Transaction;
-using BackendAssessment.Util.Enums;
+﻿
 
 namespace BackendAssessment.Interfaces.IRepositories
 {

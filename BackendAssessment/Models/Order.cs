@@ -1,9 +1,4 @@
-﻿using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Util.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json;
-
+﻿
 namespace BackendAssessment.Models
 {
     public class Order

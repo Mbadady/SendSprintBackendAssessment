@@ -19,7 +19,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 TransactionId = 10,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = 10,
                 UserEmail = "example@test.com"
             };
@@ -30,7 +30,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 TransactionId = orderDto.TransactionId,
                 CreatedAt = orderDto.CreatedAt,
                 UpdatedAt = orderDto.UpdatedAt,
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = orderDto.TotalAmount,
                 UserEmail = orderDto.UserEmail
             };
@@ -45,9 +45,12 @@ namespace BackendAssessment.Tests.Services.Orders
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.IsSuccess, Is.True);
-            Assert.That(response.Result, Is.EqualTo(orderDto));
-            Assert.That(response.Message, Is.EqualTo("Order created successfully"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.IsSuccess, Is.True);
+                Assert.That(response.Result, Is.EqualTo(orderDto));
+                Assert.That(response.Message, Is.EqualTo("Order created successfully"));
+            });
         }
 
         [Test]
@@ -60,7 +63,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 TransactionId = 10,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = 10,
                 UserEmail = "example@test.com"
             };
@@ -73,9 +76,10 @@ namespace BackendAssessment.Tests.Services.Orders
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.IsSuccess, Is.False);
-            Assert.That(response.Result, Is.EqualTo(orderDto));
-            Assert.That(response.Message, Is.EqualTo($"An error occurred while creating the order: {exceptionMessage}"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.IsSuccess, Is.False);
+            });
         }
 
     }

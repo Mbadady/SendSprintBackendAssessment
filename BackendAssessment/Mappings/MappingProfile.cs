@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Models.DTOs.Product;
-using BackendAssessment.Models.DTOs.Transaction;
-using System.Text.Json;
+﻿
 
 namespace BackendAssessment.Mappings
 {

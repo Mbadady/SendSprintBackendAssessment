@@ -1,15 +1,4 @@
-﻿using AutoMapper;
-using BackendAssessment.Interfaces.IRepositories;
-using BackendAssessment.Interfaces.Repositories;
-using BackendAssessment.Interfaces.Services;
-using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Models.DTOs.Payment;
-using BackendAssessment.Models.DTOs.Transaction;
-using BackendAssessment.Util.Enums;
-using PayStack.Net;
-
+﻿
 namespace BackendAssessment.Services
 {
     public class CheckOutService : ICheckOutService
@@ -24,7 +13,7 @@ namespace BackendAssessment.Services
         public CheckOutService(IOrderRepository orderRepository, ITransactionRepository transactionRepository, IProductRepository productRepository, IConfiguration configuration, IMapper mapper)
         {
             _configuration = configuration;
-            var tokenValue = _configuration.GetValue<string>("Payment:PaystackSK");
+            var tokenValue = _configuration["Payment:PaystackSK"];
             Paystack = new PayStackApi(tokenValue);
             _orderRepository = orderRepository;
             _transactionRepository = transactionRepository;
@@ -65,8 +54,8 @@ namespace BackendAssessment.Services
                     UserEmail = email, // Ideally, retrieve from the authenticated user context
                     OrderItems = products,
                     TotalAmount = totalAmount,
-                    PaymentStatus = PaymentStatus.PENDING,
-                    PaymentStatusDesc = PaymentStatus.PENDING.ToString(),
+                    PaymentStatus = PaymentStatus.Pending,
+                    PaymentStatusDesc = PaymentStatus.Pending.ToString(),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };
@@ -83,12 +72,12 @@ namespace BackendAssessment.Services
                 {
                     Amount = totalAmount,
                     Currency = "NGN", // Adjust according to your needs
-                    Status = PaymentStatus.PENDING,
-                    StatusDesc = PaymentStatus.PENDING.ToString(),
+                    Status = PaymentStatus.Pending,
+                    StatusDesc = PaymentStatus.Pending.ToString(),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
                     PaymentReference = txRef,
-                    PaymentGateway = PaymentMethod.PAYSTACK // or "Flutterwave"
+                    PaymentGateway = PaymentMethod.Paystack // or "Flutterwave"
                 };
                 await _transactionRepository.AddAsync(transaction, cancellation);
 
@@ -110,11 +99,11 @@ namespace BackendAssessment.Services
             {
                 return ResponseDto.Failure(ex, "An error occurred while processing the checkout");
             }
-            
-           
+
+
         }
 
-        public PaymentResponse InitiatePayment(Transaction transaction, string email)
+        protected virtual PaymentResponse InitiatePayment(Transaction transaction, string email)
         {
 
             TransactionInitializeRequest request = new()

@@ -21,6 +21,18 @@ namespace BackendAssessment.Tests.Services.CheckOut
         private Mock<IConfiguration> _configurationMock;
         private IMapper _mapper;
         private ICheckOutService _checkOutService;
+        private class CheckOutServiceTestable : CheckOutService
+        {
+            public PaymentResponse MockedResponse { get; set; }
+
+            public CheckOutServiceTestable(IOrderRepository orderRepository, ITransactionRepository transactionRepository, IProductRepository productRepository, IConfiguration configuration, IMapper mapper)
+                : base(orderRepository, transactionRepository, productRepository, configuration, mapper) { }
+
+            protected override PaymentResponse InitiatePayment(Transaction transaction, string email)
+            {
+                return MockedResponse; // Return the mocked response
+            }
+        }
 
         [SetUp]
         public void Setup()
@@ -45,7 +57,8 @@ namespace BackendAssessment.Tests.Services.CheckOut
                 _mapper
             );
 
-            _configurationMock.Setup(c => c.GetValue<string>("Payment:PaystackSK")).Returns("test_key");
+            // Setup the mock to return the expected value
+            _configurationMock.Setup(c => c["Payment:PaystackSK"]).Returns("test_key");
         }
 
         [Test]
@@ -54,10 +67,10 @@ namespace BackendAssessment.Tests.Services.CheckOut
             // Arrange
             var checkOutRequest = new CheckOutRequest
             {
-                Products = new List<ProductQuantity>
-                {
+                Products =
+                [
                     new ProductQuantity { ProductId = 1, Quantity = 2 }
-                }
+                ]
             };
 
             var product = new Product
@@ -78,11 +91,34 @@ namespace BackendAssessment.Tests.Services.CheckOut
                 .Returns(Task.CompletedTask);
 
             // Act
-            var result = await _checkOutService.ProcessCheckoutAsync(checkOutRequest, "user@example.com");
+            // Create a successful payment response
+            var successfulPaymentResponse = new PaymentResponse
+            {
+                AuthorizationUrl = "http://payment-url.com",
+                PaymentReference = "test_payment_reference"
+            };
 
-            // Assert
-            Assert.That(result.IsSuccess, Is.True);
-            Assert.That(result.Message, Is.EqualTo("Checkout successful. Proceed to confirm payment"));
+            // Create testable service and set up mocked response
+            var testService = new CheckOutServiceTestable(
+                _orderRepositoryMock.Object,
+                _transactionRepositoryMock.Object,
+                _productRepositoryMock.Object,
+                _configurationMock.Object,
+                _mapper
+            )
+            {
+                MockedResponse = successfulPaymentResponse // Set the successful response
+            };
+
+            // Act
+            var result = await testService.ProcessCheckoutAsync(checkOutRequest, "user@example.com");
+
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(result.IsSuccess, Is.True);
+                Assert.That(result.Message, Is.EqualTo("Checkout successful. Proceed to confirm payment"));
+            });
             _orderRepositoryMock.Verify(repo => repo.AddAsync(It.IsAny<Order>(), It.IsAny<CancellationToken>()), Times.Once);
             _transactionRepositoryMock.Verify(repo => repo.AddAsync(It.IsAny<Transaction>(), It.IsAny<CancellationToken>()), Times.Once);
         }
@@ -105,9 +141,12 @@ namespace BackendAssessment.Tests.Services.CheckOut
             // Act
             var result = await _checkOutService.ProcessCheckoutAsync(checkOutRequest, "user@example.com");
 
-            // Assert
-            Assert.That(result.IsSuccess, Is.False);
-            Assert.That(result.Message, Is.EqualTo("Product not found for this id 1"));
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(result.IsSuccess, Is.False);
+                Assert.That(result.Message, Is.EqualTo("Product not found for this id 1"));
+            });
         }
 
         [Test]
@@ -136,9 +175,69 @@ namespace BackendAssessment.Tests.Services.CheckOut
             // Act
             var result = await _checkOutService.ProcessCheckoutAsync(checkOutRequest, "user@example.com");
 
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(result.IsSuccess, Is.False);
+                Assert.That(result.Message, Is.EqualTo("Product quantity is not enough for this id 1"));
+            });
+        }
+
+        [Test]
+        public async Task ProcessCheckoutAsync_ShouldReturnFailure_WhenPaymentInitializationFails()
+        {
+            // Arrange
+            var checkOutRequest = new CheckOutRequest
+            {
+                Products =
+            [
+                new ProductQuantity { ProductId = 1, Quantity = 2 }
+            ]
+            };
+
+            var product = new Product
+            {
+                ProductId = 1,
+                Name = "Test Product",
+                Price = 1000,
+                Quantity = 5
+            };
+
+            _productRepositoryMock.Setup(repo => repo.GetByIdAsync(1, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(product);
+            _orderRepositoryMock.Setup(repo => repo.AddAsync(It.IsAny<Order>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.CompletedTask);
+            _transactionRepositoryMock.Setup(repo => repo.AddAsync(It.IsAny<Transaction>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.CompletedTask);
+            _orderRepositoryMock.Setup(repo => repo.UpdateOrderAsync(It.IsAny<OrderDto>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.CompletedTask);
+
+            // Create testable service and set up mocked response
+            var testService = new CheckOutServiceTestable(
+                _orderRepositoryMock.Object,
+                _transactionRepositoryMock.Object,
+                _productRepositoryMock.Object,
+                _configurationMock.Object,
+                _mapper
+            )
+            {
+                MockedResponse = new PaymentResponse
+                {
+                    AuthorizationUrl = string.Empty, // Simulate failure
+                    PaymentReference = string.Empty
+                }
+            };
+
+            // Act
+            var result = await testService.ProcessCheckoutAsync(checkOutRequest, "user@example.com");
+
             // Assert
-            Assert.That(result.IsSuccess, Is.False);
-            Assert.That(result.Message, Is.EqualTo("Product quantity is not enough for this id 1"));
+            Assert.Multiple(() =>
+            {
+                // Assert
+                Assert.That(result.IsSuccess, Is.False);
+                Assert.That(result.Message, Is.EqualTo("Unable to complete checkout"));
+            });
         }
     }
 }

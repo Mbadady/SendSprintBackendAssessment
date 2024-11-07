@@ -1,7 +1,4 @@
-﻿using BackendAssessment.Interfaces.Services;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BackendAssessment.Controllers
+﻿namespace BackendAssessment.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

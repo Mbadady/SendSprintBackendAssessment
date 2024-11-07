@@ -1,10 +1,4 @@
-﻿using BackendAssessment.Exceptions;
-using BackendAssessment.Interfaces;
-using BackendAssessment.Interfaces.Repositories;
-using BackendAssessment.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace BackendAssessment.Repositories
+﻿namespace BackendAssessment.Repositories
 {
     public class ProductRepository : Repository<Product>, IProductRepository
     {
@@ -14,7 +8,7 @@ namespace BackendAssessment.Repositories
 
         public async Task UpdateProductQuantity(int productId, int orderQuantity, CancellationToken cancellationToken = default)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId ==  productId, cancellationToken);
+            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == productId, cancellationToken);
             if (product == null)
             {
                 throw new ResourceNotFoundException("Product not found.");

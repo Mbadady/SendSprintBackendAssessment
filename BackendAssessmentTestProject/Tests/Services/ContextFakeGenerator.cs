@@ -49,7 +49,7 @@ namespace BackendAssessment.Tests.Services
            {
             Id = 1,
             TotalAmount = 10,
-            PaymentStatus = PaymentStatus.PENDING,
+            PaymentStatus = PaymentStatus.Pending,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
             OrderItemsJson = "Lenovo",
@@ -59,7 +59,7 @@ namespace BackendAssessment.Tests.Services
         {
             Id = 1,
             TotalAmount = 10,
-            PaymentStatus = PaymentStatus.PENDING,
+            PaymentStatus = PaymentStatus.Pending,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
             OrderItemsJson = "Lenovo",
@@ -69,7 +69,7 @@ namespace BackendAssessment.Tests.Services
         {
             Id = 1,
             TotalAmount = 10,
-            PaymentStatus = PaymentStatus.PENDING,
+            PaymentStatus = PaymentStatus.Pending,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
             OrderItemsJson = "Lenovo",
@@ -88,9 +88,9 @@ namespace BackendAssessment.Tests.Services
             Currency = "NGN",
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
-            PaymentGateway = PaymentMethod.PAYSTACK,
+            PaymentGateway = PaymentMethod.Paystack,
             PaymentReference = Guid.NewGuid().ToString(),
-            Status = PaymentStatus.PENDING,
+            Status = PaymentStatus.Pending,
             StatusDesc = "Pending",
            },
         new Transaction
@@ -100,9 +100,9 @@ namespace BackendAssessment.Tests.Services
             Currency = "NGN",
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
-            PaymentGateway = PaymentMethod.PAYSTACK,
+            PaymentGateway = PaymentMethod.Paystack,
             PaymentReference = Guid.NewGuid().ToString(),
-            Status = PaymentStatus.PENDING,
+            Status = PaymentStatus.Pending,
             StatusDesc = "Pending",
         },
         new Transaction
@@ -112,9 +112,9 @@ namespace BackendAssessment.Tests.Services
             Currency = "NGN",
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
-            PaymentGateway = PaymentMethod.PAYSTACK,
+            PaymentGateway = PaymentMethod.Paystack,
             PaymentReference = Guid.NewGuid().ToString(),
-            Status = PaymentStatus.PENDING,
+            Status = PaymentStatus.Pending,
             StatusDesc = "Pending",
         }
 

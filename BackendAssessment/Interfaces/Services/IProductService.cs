@@ -1,8 +1,4 @@
-﻿using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Product;
-
-namespace BackendAssessment.Interfaces.Services
+﻿namespace BackendAssessment.Interfaces.Services
 {
     public interface IProductService
     {

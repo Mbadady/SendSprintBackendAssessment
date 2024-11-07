@@ -1,10 +1,4 @@
-﻿using BackendAssessment.Exceptions;
-using BackendAssessment.Interfaces;
-using BackendAssessment.Interfaces.IRepositories;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
-namespace BackendAssessment.Repositories
+﻿namespace BackendAssessment.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -25,7 +19,7 @@ namespace BackendAssessment.Repositories
             return await _context.Set<T>().AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(int? skip = null, int? take = null,Expression<Func<T, bool>>? filter = null, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<T>> GetAllAsync(int? skip = null, int? take = null, Expression<Func<T, bool>>? filter = null, CancellationToken cancellationToken = default)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking();
 

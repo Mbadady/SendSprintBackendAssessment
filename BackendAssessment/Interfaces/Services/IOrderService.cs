@@ -1,8 +1,4 @@
-﻿using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Util.Enums;
-
-namespace BackendAssessment.Interfaces.Services
+﻿namespace BackendAssessment.Interfaces.Services
 {
     public interface IOrderService
     {

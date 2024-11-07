@@ -1,15 +1,4 @@
-﻿using AutoMapper;
-using BackendAssessment.Exceptions;
-using BackendAssessment.Interfaces.IRepositories;
-using BackendAssessment.Interfaces.Repositories;
-using BackendAssessment.Interfaces.Services;
-using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Models.DTOs.Payment;
-using BackendAssessment.Util.Enums;
-using System.Text.Json;
-
-namespace BackendAssessment.Services
+﻿namespace BackendAssessment.Services
 {
     public class WebhookService : IWebhookService
     {
@@ -46,7 +35,7 @@ namespace BackendAssessment.Services
             var orderItems = JsonSerializer.Deserialize<List<OrderItem>>(order.OrderItemsJson);
             UpdateTransactionAndOrderStatus(webhookRequest.Event, order, transaction);
 
-            if (order.PaymentStatus == PaymentStatus.APPROVED)
+            if (order.PaymentStatus == PaymentStatus.Approved)
             {
                 foreach (var orderItem in orderItems)
                 {
@@ -63,16 +52,16 @@ namespace BackendAssessment.Services
             switch (webhookEvent)
             {
                 case "charge.success":
-                    order.PaymentStatus = PaymentStatus.APPROVED;
-                    order.PaymentStatusDesc = PaymentStatus.APPROVED.ToString();
-                    transaction.Status = PaymentStatus.APPROVED;
-                    transaction.StatusDesc = PaymentStatus.APPROVED.ToString();
+                    order.PaymentStatus = PaymentStatus.Approved;
+                    order.PaymentStatusDesc = PaymentStatus.Approved.ToString();
+                    transaction.Status = PaymentStatus.Approved;
+                    transaction.StatusDesc = PaymentStatus.Approved.ToString();
                     break;
                 case "charge.failed":
-                    order.PaymentStatus = PaymentStatus.FAILED;
-                    order.PaymentStatusDesc = PaymentStatus.FAILED.ToString();
-                    transaction.Status = PaymentStatus.FAILED;
-                    transaction.StatusDesc = PaymentStatus.FAILED.ToString();
+                    order.PaymentStatus = PaymentStatus.Failed;
+                    order.PaymentStatusDesc = PaymentStatus.Failed.ToString();
+                    transaction.Status = PaymentStatus.Failed;
+                    transaction.StatusDesc = PaymentStatus.Failed.ToString();
                     break;
                 default:
                     throw new ArgumentException("Invalid webhook event.");

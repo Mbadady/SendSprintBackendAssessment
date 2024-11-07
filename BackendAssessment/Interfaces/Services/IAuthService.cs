@@ -1,7 +1,4 @@
-﻿using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Auth;
-
-namespace BackendAssessment.Interfaces.Services
+﻿namespace BackendAssessment.Interfaces.Services
 {
     public interface IAuthService
     {

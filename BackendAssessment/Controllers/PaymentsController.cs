@@ -1,9 +1,6 @@
-﻿using BackendAssessment.Interfaces.Services;
-using BackendAssessment.Models.DTOs.Payment;
-using Microsoft.AspNetCore.Mvc;
+﻿
+
 using Newtonsoft.Json;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace BackendAssessment.Controllers
 {
@@ -11,7 +8,7 @@ namespace BackendAssessment.Controllers
     [Route("/payment/webhook")]
     public class PaymentsController(IWebhookService webhookService, IConfiguration configuration) : ControllerBase
     {
-        private readonly string _secretKey = configuration.GetValue<string>("Payment:PaystackSK");
+        private readonly string _secretKey = configuration["Payment:PaystackSK"];
 
 
         [HttpPost]

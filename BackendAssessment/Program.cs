@@ -1,22 +1,3 @@
-using BackendAssessment.Data;
-using BackendAssessment.Extensions;
-using BackendAssessment.Helpers;
-using BackendAssessment.Interfaces;
-using BackendAssessment.Interfaces.IRepositories;
-using BackendAssessment.Interfaces.Repositories;
-using BackendAssessment.Interfaces.Services;
-using BackendAssessment.Middlewares;
-using BackendAssessment.Models;
-using BackendAssessment.Repositories;
-using BackendAssessment.Services;
-using BackendAssessment.Util;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using Serilog;
-using Serilog.Events;
-
 
 var builder = WebApplication.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
@@ -29,7 +10,7 @@ Log.Logger = new LoggerConfiguration()
 
 // Add services to the container.
 // Use Serilog for logging
-builder.Host.UseSerilog((context, configuration) => 
+builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
 builder.Services.AddDbContext<AppDbContext>(option =>
 {

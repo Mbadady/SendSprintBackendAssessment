@@ -1,9 +1,4 @@
-﻿using BackendAssessment.Models.DTOs.Product;
-using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Transaction;
-using BackendAssessment.Util.Enums;
-
-namespace BackendAssessment.Interfaces.Services
+﻿namespace BackendAssessment.Interfaces.Services
 {
     public interface ITransactionService
     {

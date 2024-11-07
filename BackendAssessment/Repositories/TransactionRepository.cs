@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using BackendAssessment.Exceptions;
-using BackendAssessment.Interfaces;
-using BackendAssessment.Interfaces.IRepositories;
-using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs.Transaction;
-using BackendAssessment.Util.Enums;
-using Microsoft.EntityFrameworkCore;
-
-namespace BackendAssessment.Repositories
+﻿namespace BackendAssessment.Repositories
 {
     public class TransactionRepository : Repository<Transaction>, ITransactionRepository
     {

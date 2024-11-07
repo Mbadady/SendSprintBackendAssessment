@@ -1,6 +1,4 @@
-﻿using BackendAssessment.Util.Enums;
-
-namespace BackendAssessment.Models.DTOs.Transaction
+﻿namespace BackendAssessment.Models.DTOs.Transaction
 {
     public class TransactionDto
     {

@@ -1,6 +1,4 @@
-﻿using BackendAssessment.Util.Enums;
-
-namespace BackendAssessment.Models.DTOs.Order
+﻿namespace BackendAssessment.Models.DTOs.Order
 {
     public class OrderDto
     {

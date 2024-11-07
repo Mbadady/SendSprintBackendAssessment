@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-
+﻿
 namespace BackendAssessment.Interfaces.IRepositories
 {
     public interface IRepository<T> where T : class

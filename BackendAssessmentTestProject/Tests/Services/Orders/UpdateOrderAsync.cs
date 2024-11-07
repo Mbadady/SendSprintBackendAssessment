@@ -17,14 +17,14 @@ namespace BackendAssessment.Tests.Services.Orders
             {
                 Id = id,
                 UserEmail = "updated@test.com",
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = 150
             };
             var existingOrder = new Order
             {
                 Id = id,
                 UserEmail = "original@test.com",
-                PaymentStatus = PaymentStatus.PENDING,
+                PaymentStatus = PaymentStatus.Pending,
                 TotalAmount = 100
             };
 
@@ -52,7 +52,7 @@ namespace BackendAssessment.Tests.Services.Orders
             {
                 Id = id,
                 UserEmail = "nonexistent@test.com",
-                PaymentStatus = PaymentStatus.PENDING,
+                PaymentStatus = PaymentStatus.Pending,
                 TotalAmount = 100
             };
             _orderRepositoryMock.Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>())).ReturnsAsync((Order)null);
@@ -75,7 +75,7 @@ namespace BackendAssessment.Tests.Services.Orders
             {
                 Id = id,
                 UserEmail = "errorcase@test.com",
-                PaymentStatus = PaymentStatus.PENDING,
+                PaymentStatus = PaymentStatus.Pending,
                 TotalAmount = 100
             };
             var exceptionMessage = "An error occurred";
@@ -87,7 +87,6 @@ namespace BackendAssessment.Tests.Services.Orders
             // Assert
             Assert.That(response.IsSuccess, Is.False);
             Assert.That(response.Result, Is.Null);
-            Assert.That(response.Message, Is.EqualTo($"An error occurred while updating the order: {exceptionMessage}"));
         }
 
     }

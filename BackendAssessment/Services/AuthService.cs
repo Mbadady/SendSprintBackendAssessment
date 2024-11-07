@@ -1,11 +1,4 @@
-﻿using BackendAssessment.Interfaces;
-using BackendAssessment.Interfaces.Services;
-using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Auth;
-using Microsoft.AspNetCore.Identity;
-
-namespace BackendAssessment.Services
+﻿namespace BackendAssessment.Services
 {
     public class AuthService : IAuthService
     {

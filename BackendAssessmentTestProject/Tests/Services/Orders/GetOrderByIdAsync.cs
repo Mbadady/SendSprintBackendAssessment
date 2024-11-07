@@ -19,7 +19,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 UserEmail = "example@test.com",
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = 100
             };
             var orderDto = new OrderDto
@@ -28,7 +28,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 UserEmail = "example@test.com",
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = 100
             };
             _orderRepositoryMock.Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>())).ReturnsAsync(order);

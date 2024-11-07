@@ -13,35 +13,27 @@ namespace BackendAssessment.Tests.Services.Orders
         public async Task GetAllOrdersAsync_Should_Return_SuccessResponse_WithOrders()
         {
             // Arrange
-            var searchTerm = "test";
+            var searchTerm = "user@example.com"; 
             var skip = 0;
             var take = 10;
+
             var orders = new List<Order>
-    {
-        new Order
-        {
-            Id = 1,
-            UserEmail = "example@test.com",
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow,
-            PaymentStatus = PaymentStatus.APPROVED,
-            TotalAmount = 100
-        }
-    };
+                                                {
+                                                    new() { UserEmail = "user@example.com", Id = 2 },
+                                                    new() { UserEmail = "anotheruser@example.com",Id = 1}
+                                                };
+
+            // Mock the repository to return the expected orders
+            _orderRepositoryMock.Setup(repo => repo.GetAllAsync(skip, take, It.IsAny<Expression<Func<Order, bool>>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(orders);
+
             var orderDtos = new List<OrderDto>
-    {
-        new OrderDto
         {
-            Id = 1,
-            UserEmail = "example@test.com",
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow,
-            PaymentStatus = PaymentStatus.APPROVED,
-            TotalAmount = 100
-        }
-    };
-            Expression<Func<Order, bool>> filter = o => string.IsNullOrEmpty(searchTerm) || o.UserEmail.ToLower().Contains(searchTerm.ToLower());
-            _orderRepositoryMock.Setup(r => r.GetAllAsync(skip, take, filter, It.IsAny<CancellationToken>())).ReturnsAsync(orders);
+            new() {Id = 1, PaymentStatus = PaymentStatus.Pending, TotalAmount = 1000, TransactionId = 2,UserEmail = "user@example.com"},
+            new() { Id = 1, PaymentStatus = PaymentStatus.Pending, TotalAmount = 1000, TransactionId = 2,UserEmail = "user@example.com" }
+        };
+
+            // Mock the mapper to return the DTOs
             _mapperMock.Setup(m => m.Map<IEnumerable<OrderDto>>(orders)).Returns(orderDtos);
 
             // Act
@@ -49,50 +41,61 @@ namespace BackendAssessment.Tests.Services.Orders
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.IsSuccess, Is.True);
-            Assert.That(response.Result, Is.EqualTo(orderDtos));
-            Assert.That(response.Message, Is.EqualTo("Order(s) found successfully"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.IsSuccess, Is.True);
+                Assert.That(response.Result, Is.EqualTo(orderDtos));
+                Assert.That(response.Message, Is.EqualTo("Order(s) found successfully"));
+            });
         }
 
         [Test]
         public async Task GetAllOrdersAsync_Should_Return_SuccessResponse_WithNoOrderMessage_When_NoOrdersFound()
         {
             // Arrange
-            var searchTerm = "test";
+            var searchTerm = "user@example.com"; // The email to search for
             var skip = 0;
             var take = 10;
-            var orders = new List<Order>();
-            Expression<Func<Order, bool>> filter = o => string.IsNullOrEmpty(searchTerm) || o.UserEmail.ToLower().Contains(searchTerm.ToLower());
-            _orderRepositoryMock.Setup(r => r.GetAllAsync(skip, take, filter, It.IsAny<CancellationToken>())).ReturnsAsync(orders);
+
+            // Mock the repository to return no orders
+            _orderRepositoryMock.Setup(repo => repo.GetAllAsync(skip, take, It.IsAny<Expression<Func<Order, bool>>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync([]);
 
             // Act
             var response = await _orderService.GetAllOrdersAsync(searchTerm, skip, take);
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.IsSuccess, Is.True);
-            Assert.That(response.Result, Is.EqualTo("No order found"));
-            Assert.That(response.Message, Is.EqualTo("Order(s) found successfully"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.IsSuccess, Is.True);
+                Assert.That(response.Message, Is.EqualTo("No order found"));
+            });
         }
 
         [Test]
         public async Task GetAllOrdersAsync_Should_Return_FailureResponse_When_ExceptionThrown()
         {
             // Arrange
-            var searchTerm = "test";
+            var searchTerm = "user@example.com"; // The email to search for
             var skip = 0;
             var take = 10;
-            var exceptionMessage = "An error occurred";
-            Expression<Func<Order, bool>> filter = o => string.IsNullOrEmpty(searchTerm) || o.UserEmail.ToLower().Contains(searchTerm.ToLower());
-            _orderRepositoryMock.Setup(r => r.GetAllAsync(skip, take, filter, It.IsAny<CancellationToken>())).Throws(new Exception(exceptionMessage));
+
+            // Mock the repository to throw an exception
+            var exceptionMessage = "Database error";
+            _orderRepositoryMock.Setup(repo => repo.GetAllAsync(skip, take, It.IsAny<Expression<Func<Order, bool>>>(), It.IsAny<CancellationToken>()))
+                .ThrowsAsync(new Exception(exceptionMessage));
 
             // Act
             var response = await _orderService.GetAllOrdersAsync(searchTerm, skip, take);
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.IsSuccess, Is.False);
-            Assert.That(response.Message, Is.EqualTo($"An error occurred while fetching the orders: {exceptionMessage}"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.IsSuccess, Is.False);
+                Assert.That(response.Message, Is.EqualTo($"An error occurred while fetching the orders: {exceptionMessage}"));
+            });
         }
 
     }

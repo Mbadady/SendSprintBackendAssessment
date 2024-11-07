@@ -19,7 +19,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 TransactionId = 10,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = 10,
                 UserEmail = "example@test.com"
             };
@@ -30,7 +30,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 TransactionId = orderDto.TransactionId,
                 CreatedAt = orderDto.CreatedAt,
                 UpdatedAt = orderDto.UpdatedAt,
-                PaymentStatus = PaymentStatus.APPROVED,
+                PaymentStatus = PaymentStatus.Approved,
                 TotalAmount = orderDto.TotalAmount,
                 UserEmail = orderDto.UserEmail
             };
@@ -60,8 +60,11 @@ namespace BackendAssessment.Tests.Services.Orders
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.IsSuccess, Is.False);
-            Assert.That(response.Message, Is.EqualTo("Order not found."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.IsSuccess, Is.False);
+                Assert.That(response.Message, Is.EqualTo("Order not found."));
+            });
         }
 
     }

@@ -1,6 +1,40 @@
-﻿namespace BackendAssessment
-{
-    public class GlobalUsing
-    {
-    }
-}
+﻿global using BackendAssessment.Interfaces.Services;
+global using BackendAssessment.Models.DTOs;
+global using BackendAssessment.Models.DTOs.Auth;
+global using BackendAssessment.Models.DTOs.Product;
+global using Microsoft.AspNetCore.Authorization;
+global using BackendAssessment.Interfaces;
+global using BackendAssessment.Models;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Mvc;
+global using BackendAssessment.Models.DTOs.Payment;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using System.Security.Cryptography;
+global using System.Text;
+global using BackendAssessment.Util;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.Extensions.Options;
+global using Microsoft.IdentityModel.Tokens;
+global using Serilog;
+global using BackendAssessment.Interfaces.IRepositories;
+global using BackendAssessment.Models.DTOs.Order;
+global using BackendAssessment.Util.Enums;
+global using System.Linq.Expressions;
+global using BackendAssessment.Models.DTOs.Transaction;
+global using AutoMapper;
+global using System.Text.Json;
+global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Identity;
+global using BackendAssessment.Exceptions;
+global using BackendAssessment.Interfaces.Repositories;
+global using PayStack.Net;
+global using BackendAssessment.Data;
+global using BackendAssessment.Extensions;
+global using BackendAssessment.Helpers;
+global using BackendAssessment.Middlewares;
+global using BackendAssessment.Repositories;
+global using BackendAssessment.Services;
+global using Microsoft.OpenApi.Models;

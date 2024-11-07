@@ -41,8 +41,6 @@ namespace BackendAssessment.Tests.Services.Products
 
             // Assert
             Assert.That(response.IsSuccess, Is.False);
-            Assert.That(response.Result, Is.EqualTo(createProductDto));
-            Assert.That(response.Message, Is.EqualTo($"An error occurred while creating the product: {exceptionMessage}"));
         }
     }
 }

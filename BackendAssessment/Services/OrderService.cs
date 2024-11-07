@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using BackendAssessment.Interfaces;
-using BackendAssessment.Interfaces.Repositories;
-using BackendAssessment.Interfaces.Services;
-using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Order;
-using System.Linq.Expressions;
-
-namespace BackendAssessment.Services
+﻿namespace BackendAssessment.Services
 {
     public class OrderService : IOrderService
     {

@@ -1,13 +1,4 @@
-﻿using BackendAssessment.Interfaces;
-using BackendAssessment.Models;
-using BackendAssessment.Util;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-namespace BackendAssessment.Helpers
+﻿namespace BackendAssessment.Helpers
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {

@@ -1,8 +1,4 @@
-﻿using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs.Order;
-using Microsoft.EntityFrameworkCore;
-
-namespace BackendAssessment.Interfaces
+﻿namespace BackendAssessment.Interfaces
 {
     public interface IAppDbContext
     {

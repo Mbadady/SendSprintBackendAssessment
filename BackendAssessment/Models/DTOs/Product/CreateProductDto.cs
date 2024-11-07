@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BackendAssessment.Models.DTOs.Product
+﻿namespace BackendAssessment.Models.DTOs.Product
 {
     public class CreateProductDto
     {

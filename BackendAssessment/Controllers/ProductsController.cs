@@ -1,8 +1,4 @@
-﻿using BackendAssessment.Interfaces.Services;
-using BackendAssessment.Models.DTOs;
-using BackendAssessment.Models.DTOs.Product;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿
 
 namespace BackendAssessment.Controllers
 {
