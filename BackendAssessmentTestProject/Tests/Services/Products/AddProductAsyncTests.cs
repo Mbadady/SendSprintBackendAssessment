@@ -13,7 +13,6 @@ namespace BackendAssessment.Tests.Services.Products
             _mapperMock.Setup(m => m.Map<Product>(createProductDto)).Returns(product);
             _productRepositoryMock.Setup(r => r.AddAsync(product, It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
             _mapperMock.Setup(m => m.Map<ProductDto>(product)).Returns(productDto);
-            SetupMockData();
 
 
             // Act
