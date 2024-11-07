@@ -1,10 +1,4 @@
-﻿using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Models;
-using BackendAssessment.Util.Enums;
-using Moq;
-using NUnit.Framework;
-
-namespace BackendAssessment.Tests.Services.Orders
+﻿namespace BackendAssessment.Tests.Services.Orders
 {
     public class GetOrderByIdAsync : TestBase
     {

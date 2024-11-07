@@ -1,16 +1,4 @@
-﻿using AutoMapper;
-using BackendAssessment.Interfaces.IRepositories;
-using BackendAssessment.Interfaces.Repositories;
-using BackendAssessment.Models.DTOs.Payment;
-using BackendAssessment.Models;
-using BackendAssessment.Services;
-using Moq;
-using Microsoft.Extensions.Configuration;
-using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Models.DTOs.Transaction;
-using BackendAssessment.Interfaces.Services;
-
-namespace BackendAssessment.Tests.Services.CheckOut
+﻿namespace BackendAssessment.Tests.Services.CheckOut
 {
     [TestFixture]
     public class CheckOutServiceTests

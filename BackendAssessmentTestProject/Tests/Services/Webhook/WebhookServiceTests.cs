@@ -1,14 +1,4 @@
-﻿using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Models.DTOs.Payment;
-using BackendAssessment.Models.DTOs.Transaction;
-using BackendAssessment.Models;
-using BackendAssessment.Tests.Services;
-using BackendAssessment.Util.Enums;
-using Moq;
-using System.Text.Json;
-using BackendAssessment.Exceptions;
-using BackendAssessment.Services;
-
+﻿
 namespace BackendAssessment.Test.Tests.Services.Webhook
 {
     public class WebhookServiceTests : TestBase
@@ -20,7 +10,7 @@ namespace BackendAssessment.Test.Tests.Services.Webhook
             var transactionReference = "test_transaction_reference";
             var webhookRequest = new WebhookRequest
             {
-                Data = new Models.DTOs.Payment.Data{ Reference = transactionReference },
+                Data = new Models.DTOs.Payment.Data { Reference = transactionReference },
                 Event = "charge.success"
             };
 
@@ -78,7 +68,7 @@ namespace BackendAssessment.Test.Tests.Services.Webhook
             var webhookRequest = new WebhookRequest
             {
                 Event = "charge.success",
-                Data = new ()
+                Data = new()
                 {
                     Reference = "invalid_transaction_ref",
                     Email = "test@example.com"

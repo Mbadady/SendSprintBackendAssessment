@@ -1,10 +1,4 @@
-﻿using BackendAssessment.Models.DTOs.Order;
-using BackendAssessment.Models;
-using BackendAssessment.Util.Enums;
-using Moq;
-using NUnit.Framework;
-using System.Linq.Expressions;
-
+﻿
 namespace BackendAssessment.Tests.Services.Orders
 {
     public class GetAllOrdersAsyncTests : TestBase
@@ -13,7 +7,7 @@ namespace BackendAssessment.Tests.Services.Orders
         public async Task GetAllOrdersAsync_Should_Return_SuccessResponse_WithOrders()
         {
             // Arrange
-            var searchTerm = "user@example.com"; 
+            var searchTerm = "user@example.com";
             var skip = 0;
             var take = 10;
 

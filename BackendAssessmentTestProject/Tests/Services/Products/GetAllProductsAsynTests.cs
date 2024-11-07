@@ -1,10 +1,4 @@
-﻿using BackendAssessment.Models.DTOs.Product;
-using BackendAssessment.Models;
-using Moq;
-using NUnit.Framework;
-using System.Linq.Expressions;
-
-namespace BackendAssessment.Tests.Services.Products
+﻿namespace BackendAssessment.Tests.Services.Products
 {
     public class GetAllProductsAsynTests : TestBase
     {

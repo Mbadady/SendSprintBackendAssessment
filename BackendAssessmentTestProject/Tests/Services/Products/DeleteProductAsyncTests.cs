@@ -1,8 +1,4 @@
-﻿using BackendAssessment.Models;
-using Moq;
-using NUnit.Framework;
-
-namespace BackendAssessment.Tests.Services.Products
+﻿namespace BackendAssessment.Tests.Services.Products
 {
     public class DeleteProductAsyncTests : TestBase
     {

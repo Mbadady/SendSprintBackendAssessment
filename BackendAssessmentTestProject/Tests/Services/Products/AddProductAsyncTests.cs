@@ -1,7 +1,4 @@
-﻿using BackendAssessment.Models;
-using BackendAssessment.Models.DTOs.Product;
-using Moq;
-
+﻿
 namespace BackendAssessment.Tests.Services.Products
 {
     public class AddProductAsyncTests : TestBase

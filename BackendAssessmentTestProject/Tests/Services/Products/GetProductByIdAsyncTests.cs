@@ -1,9 +1,4 @@
-﻿using BackendAssessment.Models.DTOs.Product;
-using BackendAssessment.Models;
-using Moq;
-using NUnit.Framework;
-
-namespace BackendAssessment.Tests.Services.Products
+﻿namespace BackendAssessment.Tests.Services.Products
 {
     [TestFixture]
     public class GetProductByIdAsyncTests : TestBase
