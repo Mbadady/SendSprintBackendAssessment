@@ -47,7 +47,7 @@ namespace BackendAssessment.Test.Tests.Services.Webhook
                 .ReturnsAsync(transactionDto);
 
             // Mock the order repository to return the order
-            _orderRepositoryMock.Setup(repo => repo.FindByTransactionIdAsync(transactionDto.Id))
+            _orderRepositoryMock.Setup(repo => repo.FindByTransactionIdAsync(It.Is<int>(id => id == transactionDto.Id), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(order);
 
             // Mock the product repository to verify quantity update
