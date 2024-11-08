@@ -1,4 +1,6 @@
-﻿namespace BackendAssessment.Services
+﻿using BackendAssessment.Models;
+
+namespace BackendAssessment.Services
 {
     public class ProductService : IProductService
     {
@@ -15,6 +17,8 @@
             try
             {
                 var product = _mapper.Map<Product>(createProductDto);
+                product.CreatedAt = DateTime.UtcNow;
+                product.UpdatedAt = DateTime.UtcNow;
                 await _productRepository.AddAsync(product, cancellationToken);
 
                 var productDto = _mapper.Map<ProductDto>(product);
@@ -78,6 +82,7 @@
                     return ResponseDto.Failure(updateProductDto, "Product not found.");
 
                 _mapper.Map(updateProductDto, existingProduct);
+                existingProduct.UpdatedAt = DateTime.UtcNow;
 
                 await _productRepository.UpdateAsync(existingProduct, cancellationToken);
                 var productDto = _mapper.Map<ProductDto>(existingProduct);
