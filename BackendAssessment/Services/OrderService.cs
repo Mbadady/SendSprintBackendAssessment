@@ -98,6 +98,7 @@
                     return ResponseDto.Failure(order, "Order not found.");
 
                 _mapper.Map(order, existingOrder);
+                existingOrder.UpdatedAt = DateTime.Now;
 
                 await _orderRepository.UpdateAsync(existingOrder, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);

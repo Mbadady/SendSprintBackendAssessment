@@ -54,14 +54,18 @@
                 case "charge.success":
                     order.PaymentStatus = PaymentStatus.Approved;
                     order.PaymentStatusDesc = PaymentStatus.Approved.ToString();
+                    order.UpdatedAt = DateTime.UtcNow;
                     transaction.Status = PaymentStatus.Approved;
                     transaction.StatusDesc = PaymentStatus.Approved.ToString();
+                    transaction.UpdatedAt = DateTime.UtcNow;
                     break;
                 case "charge.failed":
                     order.PaymentStatus = PaymentStatus.Failed;
                     order.PaymentStatusDesc = PaymentStatus.Failed.ToString();
+                    order.UpdatedAt = DateTime.Now;
                     transaction.Status = PaymentStatus.Failed;
                     transaction.StatusDesc = PaymentStatus.Failed.ToString();
+                    transaction.UpdatedAt = DateTime.Now;
                     break;
                 default:
                     throw new ArgumentException("Invalid webhook event.");
