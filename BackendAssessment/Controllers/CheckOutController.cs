@@ -15,6 +15,7 @@ namespace BackendAssessment.Controllers
 
         // POST /checkout
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Checkout([FromBody] CheckOutRequest checkoutRequest)
         {
             var email = User.FindFirstValue(ClaimTypes.Email) ?? User.FindFirstValue(JwtRegisteredClaimNames.Email);
