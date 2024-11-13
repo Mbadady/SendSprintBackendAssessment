@@ -46,7 +46,7 @@
         {
             var entity = await _context.Set<T>().FindAsync([id], cancellationToken);
 
-            return entity ?? throw new ResourceNotFoundException($"Entity with ID {id} not found.");
+            return entity ?? throw new ResourceNotFoundException($"Entity with ID {id} not found");
         }
 
         public async Task RemoveAsync(T entity, CancellationToken cancellationToken = default)

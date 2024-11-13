@@ -12,17 +12,17 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllOrders(string? searchTerm, int? skip, int? take)
+        public async Task<IActionResult> GetAllOrders(int? skip, int? take)
         {
-            var response = await _orderService.GetAllOrdersAsync(searchTerm, skip, take);
-            return Ok(response);
+            var response = await _orderService.GetAllOrdersAsync(skip, take);
+            return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(int id)
         {
             var response = await _orderService.GetOrderByIdAsync(id);
-            return Ok(response);
+            return response.IsSuccess ? Ok(response) : NotFound(response);
         }
     }
 }

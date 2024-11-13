@@ -31,7 +31,7 @@ namespace BackendAssessment.Tests.Services.Orders
             _mapperMock.Setup(m => m.Map<IEnumerable<OrderDto>>(orders)).Returns(orderDtos);
 
             // Act
-            var response = await _orderService.GetAllOrdersAsync(searchTerm, skip, take);
+            var response = await _orderService.GetAllOrdersAsync(skip, take);
 
             // Assert
             Assert.That(response, Is.Not.Null);
@@ -56,7 +56,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 .ReturnsAsync([]);
 
             // Act
-            var response = await _orderService.GetAllOrdersAsync(searchTerm, skip, take);
+            var response = await _orderService.GetAllOrdersAsync(skip, take);
 
             // Assert
             Assert.That(response, Is.Not.Null);
@@ -81,7 +81,7 @@ namespace BackendAssessment.Tests.Services.Orders
                 .ThrowsAsync(new Exception(exceptionMessage));
 
             // Act
-            var response = await _orderService.GetAllOrdersAsync(searchTerm, skip, take);
+            var response = await _orderService.GetAllOrdersAsync(skip, take);
 
             // Assert
             Assert.That(response, Is.Not.Null);

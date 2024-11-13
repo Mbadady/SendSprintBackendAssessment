@@ -1,6 +1,4 @@
-﻿using BackendAssessment.Models;
-
-namespace BackendAssessment.Services
+﻿namespace BackendAssessment.Services
 {
     public class ProductService : IProductService
     {
@@ -66,6 +64,11 @@ namespace BackendAssessment.Services
                 var productDto = _mapper.Map<ProductDto>(product);
                 return ResponseDto.Success(productDto, "Product found successfully");
             }
+            catch (ResourceNotFoundException ex)
+            {
+                return ResponseDto.Failure(ex.Message);
+
+            }
             catch (Exception ex)
             {
                 return ResponseDto.Failure($"An error occurred while fetching the product: {ex.Message}", ex);
@@ -89,6 +92,11 @@ namespace BackendAssessment.Services
 
                 return ResponseDto.Success(productDto, "Product updated successfully");
             }
+            catch (ResourceNotFoundException ex)
+            {
+                return ResponseDto.Failure(ex.Message);
+
+            }
             catch (Exception ex)
             {
                 return ResponseDto.Failure(updateProductDto, $"An error occurred while updating the product: {ex.Message}", ex);
@@ -105,6 +113,11 @@ namespace BackendAssessment.Services
                 await _productRepository.RemoveAsync(product, cancellationToken);
 
                 return ResponseDto.Success("Product deleted successfully");
+            }
+            catch (ResourceNotFoundException ex)
+            {
+                return ResponseDto.Failure(ex.Message);
+
             }
             catch (Exception ex)
             {

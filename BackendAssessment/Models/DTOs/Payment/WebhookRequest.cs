@@ -3,7 +3,7 @@
 public class WebhookRequest
 {
     public string Event { get; set; } = string.Empty;// The type of event (e.g., "charge.success", "charge.failed")
-    public Data Data { get; set; }
+    public Data? Data { get; set; }
 }
 public class Data
 {

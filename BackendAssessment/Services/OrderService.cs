@@ -49,18 +49,16 @@
             }
         }
 
-        public async Task<ResponseDto> GetAllOrdersAsync(string? searchTerm, int? skip, int? take, CancellationToken cancellationToken = default)
+        public async Task<ResponseDto> GetAllOrdersAsync(int? skip, int? take, CancellationToken cancellationToken = default)
         {
             try
             {
-                Expression<Func<Order, bool>> filter = o =>
-                    string.IsNullOrEmpty(searchTerm) || o.UserEmail.ToLower().Contains(searchTerm.ToLower());
 
-                var orders = await _orderRepository.GetAllAsync(skip, take, filter, cancellationToken);
+                var orders = await _orderRepository.GetAllAsync(skip, take, cancellationToken: cancellationToken);
 
                 if (!orders.Any())
                 {
-                    return ResponseDto.Success("No order found");
+                    return ResponseDto.Failure("No order found");
                 }
 
                 var orderDtos = _mapper.Map<IEnumerable<OrderDto>>(orders);
@@ -82,6 +80,11 @@
 
                 var orderDto = _mapper.Map<OrderDto>(order);
                 return ResponseDto.Success(orderDto, "Order found successfully");
+            }
+            catch (ResourceNotFoundException ex)
+            {
+                return ResponseDto.Failure(ex.Message);
+
             }
             catch (Exception ex)
             {
@@ -106,6 +109,11 @@
 
                 return ResponseDto.Success(orderDto, "Order updated successfully");
             }
+            catch (ResourceNotFoundException ex)
+            {
+                return ResponseDto.Failure(ex.Message);
+
+            }
             catch (Exception ex)
             {
                 return ResponseDto.Failure(order, $"An error occurred while updating the order: {ex.Message}", ex);
@@ -121,7 +129,7 @@
 
                 return ResponseDto.Success(order, "order transactionId updated successfully.");
             }
-            catch (KeyNotFoundException ex)
+            catch (ResourceNotFoundException ex)
             {
                 return ResponseDto.Failure(ex.Message);
             }

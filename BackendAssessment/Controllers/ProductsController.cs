@@ -24,7 +24,6 @@ namespace BackendAssessment.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [ProducesResponseType(typeof(ResponseDto), 200)]
         [ProducesResponseType(typeof(ResponseDto), 404)]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? searchTerm, [FromQuery] int? skip, [FromQuery] int? take, CancellationToken cancellationToken)
@@ -53,7 +52,6 @@ namespace BackendAssessment.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
         [ProducesResponseType(typeof(ResponseDto), 200)]
         [ProducesResponseType(typeof(ResponseDto), 404)]
         public async Task<IActionResult> DeleteProduct(int id, CancellationToken cancellationToken)

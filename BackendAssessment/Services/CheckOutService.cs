@@ -95,12 +95,15 @@ namespace BackendAssessment.Services
 
                 return ResponseDto.Success(paymentResponse, "Checkout successful. Proceed to confirm payment");
             }
+            catch (ResourceNotFoundException ex)
+            {
+                return ResponseDto.Failure($"{ex.Message} for this order");
+
+            }
             catch (Exception ex)
             {
-                return ResponseDto.Failure(ex, "An error occurred while processing the checkout");
+                return ResponseDto.Failure($"An error occurred while processing the checkout: {ex.Message}", ex);
             }
-
-
         }
 
         protected virtual PaymentResponse InitiatePayment(Transaction transaction, string email)
